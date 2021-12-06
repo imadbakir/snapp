@@ -1,0 +1,7 @@
+<div class="p-5 text-center">
+  <h1>Search for a car in your city</h1>
+  <app-search-box (filter)="searchCars($event)"></app-search-box>
+  <div class="mt-4 grid">
+      <app-car *ngFor="let car of cars" [car]="car"></app-car>
+  </div>
+</div>

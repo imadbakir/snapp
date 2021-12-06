@@ -1,0 +1,37 @@
+<div
+  class="flex flex-1 flex-col"
+  [formGroup]="form"
+  (clickOutside)="toggleState(false)"
+>
+  <input formControlName="term" />
+  <div class="relative">
+    <div
+      *ngIf="showPanel"
+      class="
+        border-1 border-gray-light
+        absolute
+        top-0
+        left-0
+        w-full
+        h-10
+        overflow-hidden overflow-y-auto
+      "
+    >
+      <ng-container *ngIf="cities?.length;else noResults">
+        <div
+          (click)="select(city)"
+          *ngFor="let city of cities; let first = first"
+          class="p-2"
+          [ngClass]="{
+            'text-primary': manuelSelection?.name == city.name || first
+          }"
+        >
+          {{ city.name }}
+        </div>
+      </ng-container>
+      <ng-template #noResults>
+        no results
+      </ng-template>
+    </div>
+  </div>
+</div>

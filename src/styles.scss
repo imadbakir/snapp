@@ -1,1 +1,157 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+$colors: (
+  red: #ff3538,
+  grey: (
+    base: #404145,
+    light: #e5e7e8,
+  ),
+  primary: (
+    base: #019edb,
+  ),
+  accent: (
+    base: #f47922,
+  ),
+);
+$font-size: (
+  sm:12px,
+  md:16px,
+  lg:20px,
+);
+$sizes: 0 1 2 3 4 5 6 7 8 9 10;
+
+@each $size in $sizes {
+  $actual: $size/2;
+  .top-#{$size}{
+      top:#{$size}
+  }
+  .left-#{$size}{
+    left:#{$size}
+  }
+  .h-#{$size} {
+    height: #{$size}rem;
+  }
+  .p-#{$size} {
+    padding: #{$actual}rem;
+  }
+  .pt-#{$size} {
+    padding-top: #{$actual}rem;
+  }
+  .pr-#{$size} {
+    padding-right: #{$actual}rem;
+  }
+  .pb-#{$size} {
+    padding-bottom: #{$actual}rem;
+  }
+  .pl-#{$size} {
+    padding-left: #{$actual}rem;
+  }
+
+  .m-#{$size} {
+    margin: #{$actual}rem;
+  }
+  .mt-#{$size} {
+    margin-top: #{$actual}rem;
+  }
+  .mr-#{$size} {
+    margin-right: #{$actual}rem;
+  }
+  .mb-#{$size} {
+    margin-bottom: #{$actual}rem;
+  }
+  .ml-#{$size} {
+    margin-left: #{$actual}rem;
+  }
+  .border-#{$size} {
+    border: #{$size}px solid;
+  }
+  .border-#{$size}-t {
+    border-top: #{$size}px solid;
+  }
+  .border-#{$size}-r {
+    border-right: #{$size}px solid;
+  }
+  .border-#{$size}-b {
+    border-bottom: #{$size}px solid;
+  }
+  .border-#{$size}-l {
+    border-left: #{$size}px solid;
+  }
+}
+.overflow-hidden{
+  overflow: hidden;
+
+}
+.overflow-y-auto{
+  overflow-y: auto;
+}
+.absolute{
+  position: absolute;
+}
+.relative{
+  position:relative;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+.justify-center {
+  justify-content: center;
+}
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-bold {
+ font-weight: bold;
+}
+@mixin modifiers(
+  $map,
+  $attribute,
+  $prefix: "-",
+  $separator: "-",
+  $base: "base"
+) {
+  @each $key, $value in $map {
+    &#{if($key != $base, #{$prefix}#{$key}, '')} {
+      @if type-of($value) == "map" {
+        @include modifiers($value, $attribute, $separator);
+      } @else {
+        #{$attribute}: $value;
+      }
+    }
+  }
+}
+
+.text {
+  @include modifiers($colors, "color", $separator: "-");
+}
+.text {
+  @include modifiers($font-size, "font-size", $separator: "-");
+}
+.border {
+  @include modifiers($colors, "border-color", $separator: "-");
+}
